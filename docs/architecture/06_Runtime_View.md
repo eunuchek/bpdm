@@ -66,7 +66,7 @@ sequenceDiagram
     end
     
     loop Polling for finished Golden Record Tasks
-        Gate->>Orchestrator: GET golden-record-tasks/finished-events <br> Payload: timestamp (last poll time)
+        Gate->>Orchestrator: GET golden-record-tasks/finished-events <br> Query params: timestamp (last poll time)
         Orchestrator-->Gate: List of finished task events
         Gate-->>Gate: Query sharing states matching finished task IDs
         Gate->>Orchestrator: POST golden-record-tasks/state/search <br> Payload: Golden Record Task IDs

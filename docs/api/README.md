@@ -162,7 +162,7 @@ This API offers endpoints for retrieving and resolving business partner data bei
 
 Business partner data to be processed come in processing tasks with their own task ID.
 A processing service receives the business partner along with the task ID.
-The service than can process the data and post the result of the task back to the API with the matching task ID.
+The service then can process the data and post the result of the task back to the API with the matching task ID.
 
 #### Finished Events
 
