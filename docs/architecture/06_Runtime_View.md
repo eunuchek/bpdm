@@ -66,9 +66,11 @@ sequenceDiagram
     end
     
     loop Polling for finished Golden Record Tasks
-        Gate-->>Gate: Query sharing states in Sharing State Type 'PENDING'
-        Gate->>Orchestrator: POST golden-record-tasks/state/search <br> Payload: Golde Record Task ID
-        Orchestrator-->Gate: Golden Record Task State and Result
+        Gate->>Orchestrator: GET golden-record-tasks/finished-events <br> Query params: timestamp (last poll time)
+        Orchestrator-->Gate: List of finished task events
+        Gate-->>Gate: Query sharing states matching finished task IDs
+        Gate->>Orchestrator: POST golden-record-tasks/state/search <br> Payload: Golden Record Task IDs
+        Orchestrator-->Gate: Golden Record Task States and Results
         Gate-->>Gate: Persist Business Partner Output
         Gate-->>Gate: Set Sharing State 'Success'
         Gate-->>Gate: Add Changelog Entry 'Create' for Business Partner Output

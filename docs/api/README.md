@@ -15,6 +15,7 @@
       * [Authorization](#authorization-1)
     * [Orchestrator API](#orchestrator-api)
       * [Tasks](#tasks)
+      * [Finished Events](#finished-events)
       * [Processing Steps](#processing-steps)
       * [Clean And Sync Step](#clean-and-sync-step)
   * [Use Cases](#use-cases)
@@ -162,8 +163,30 @@ This API offers endpoints for retrieving and resolving business partner data bei
 
 Business partner data to be processed come in processing tasks with their own task ID.
 A processing service receives the business partner along with the task ID.
-The service than can process the data and post the result of the task back to the API with the matching task ID.
+The service then can process the data and post the result of the task back to the API with the matching task ID.
 
+#### Finished Events
+
+The Orchestrator API provides an efficient way to track completed tasks through the finished events endpoint:
+
+**Endpoint:** `GET /v7/business-partners/golden-record-tasks/finished-events`
+
+This endpoint returns an event log of golden record tasks that have finished processing (with result state Success or Error).
+Task creators can use this endpoint to poll for completion status more efficiently than querying individual task states.
+
+**Parameters:**
+- `timestamp`: Filter events that occurred after this time (ISO 8601 format)
+- `page`: Page number for pagination (min: 0, default: 0)
+- `size`: Results per page (min: 1, max: 100, default: 30)
+
+**Response:** A paginated list of finished task events, sorted by completion time.
+
+**Usage Example:**
+1. Create tasks and record the timestamp
+2. Poll the finished-events endpoint with that timestamp to get all tasks that completed after that time
+3. Use the task IDs from the response to fetch detailed results if needed
+
+This approach is more efficient than polling individual task states, especially when tracking multiple tasks.
 
 #### Processing Steps
 
