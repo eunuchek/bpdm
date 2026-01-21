@@ -15,6 +15,7 @@
       * [Authorization](#authorization-1)
     * [Orchestrator API](#orchestrator-api)
       * [Tasks](#tasks)
+      * [Finished Events](#finished-events)
       * [Processing Steps](#processing-steps)
       * [Clean And Sync Step](#clean-and-sync-step)
   * [Use Cases](#use-cases)
